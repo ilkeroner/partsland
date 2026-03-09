@@ -325,7 +325,9 @@ function goStep(n){
 }
 
 // VIN
-const WMI={'JT':{make:'Toyota',country:'Japonya',type:'Otomobil'},'JN':{make:'Nissan',country:'Japonya',type:'Otomobil'},'JH':{make:'Honda',country:'Japonya',type:'Otomobil'},'JS':{make:'Subaru',country:'Japonya',type:'Otomobil'},'JM':{make:'Mazda',country:'Japonya',type:'Otomobil'},'WV':{make:'Volkswagen',country:'Almanya',type:'Otomobil'},'WBA':{make:'BMW',country:'Almanya',type:'Otomobil'},'WDD':{make:'Mercedes-Benz',country:'Almanya',type:'Otomobil'},'WAU':{make:'Audi',country:'Almanya',type:'Otomobil'},'WP0':{make:'Porsche',country:'Almanya',type:'Spor'},'VSS':{make:'SEAT',country:'İspanya',type:'Otomobil'},'VF1':{make:'Renault',country:'Fransa',type:'Otomobil'},'VF3':{make:'Peugeot',country:'Fransa',type:'Otomobil'},'VF7':{make:'Citroën',country:'Fransa',type:'Otomobil'},'NM0':{make:'Hyundai',country:'G.Kore',type:'Otomobil'},'KNA':{make:'Kia',country:'G.Kore',type:'Otomobil'},'KMH':{make:'Hyundai',country:'G.Kore',type:'Otomobil'},'TF':{make:'Toyota',country:'Türkiye',type:'Otomobil'},'YV1':{make:'Volvo',country:'İsveç',type:'Otomobil'},'1G':{make:'GM',country:'ABD',type:'Otomobil'},'1F':{make:'Ford',country:'ABD',type:'Otomobil'},'2T':{make:'Toyota',country:'Kanada',type:'Otomobil'},'MHF':{make:'Toyota',country:'Endonezya',type:'Otomobil'}};
+const WMI={'JT':{make:'Toyota',country:'Japonya',type:'Otomobil'},'JN':{make:'Nissan',country:'Japonya',type:'Otomobil'},'JH':{make:'Honda',country:'Japonya',type:'Otomobil'},'JS':{make:'Subaru',country:'Japonya',type:'Otomobil'},'JM':{make:'Mazda',country:'Japonya',type:'Otomobil'},'WV':{make:'Volkswagen',country:'Almanya',type:'Otomobil'},'WBA':{make:'BMW',country:'Almanya',type:'Otomobil'},'WDB':{make:'Mercedes-Benz',country:'Almanya',type:'Otomobil'},'WDD':{make:'Mercedes-Benz',country:'Almanya',type:'Otomobil'},'WAU':{make:'Audi',country:'Almanya',type:'Otomobil'},'WP0':{make:'Porsche',country:'Almanya',type:'Spor'},'VSS':{make:'SEAT',country:'İspanya',type:'Otomobil'},'VF1':{make:'Renault',country:'Fransa',type:'Otomobil'},'VF3':{make:'Peugeot',country:'Fransa',type:'Otomobil'},'VF7':{make:'Citroën',country:'Fransa',type:'Otomobil'},'NM0':{make:'Hyundai',country:'G.Kore',type:'Otomobil'},'NM4':{make:'Hyundai',country:'G.Kore',type:'Otomobil'},'KNA':{make:'Kia',country:'G.Kore',type:'Otomobil'},'KMH':{make:'Hyundai',country:'G.Kore',type:'Otomobil'},'TF':{make:'Toyota',country:'Türkiye',type:'Otomobil'},'YV1':{make:'Volvo',country:'İsveç',type:'Otomobil'},'1G':{make:'GM',country:'ABD',type:'Otomobil'},'1F':{make:'Ford',country:'ABD',type:'Otomobil'},'2T':{make:'Toyota',country:'Kanada',type:'Otomobil'},'MHF':{make:'Toyota',country:'Endonezya',type:'Otomobil'},
+'NLH':{make:'Nissan',country:'Hollanda',type:'Otomobil'},'NLA':{make:'Toyota',country:'Hollanda',type:'Otomobil'},'XLR':{make:'Volvo',country:'Hollanda',type:'Otomobil'},'XLE':{make:'Volvo',country:'Hollanda',type:'Otomobil'},'NL':{make:'Nissan/Renault',country:'Hollanda',type:'Otomobil'},
+'VNK':{make:'Toyota',country:'Fransa',type:'Otomobil'},'VNE':{make:'Nissan',country:'Fransa',type:'Otomobil'},'UU':{make:'Dacia/Renault',country:'Romanya',type:'Otomobil'},'TMB':{make:'Skoda',country:'Çekya',type:'Otomobil'},'TMA':{make:'Skoda',country:'Çekya',type:'Otomobil'},'AAV':{make:'Volkswagen',country:'Güney Afrika',type:'Otomobil'},'ADN':{make:'Opel',country:'Almanya',type:'Otomobil'},'WOL':{make:'Opel',country:'Almanya',type:'Otomobil'},'W0L':{make:'Opel',country:'Almanya',type:'Otomobil'},'SAJ':{make:'Jaguar',country:'İngiltere',type:'Otomobil'},'SAL':{make:'Land Rover',country:'İngiltere',type:'Otomobil'},'SCC':{make:'Lotus',country:'İngiltere',type:'Spor'},'ZAR':{make:'Alfa Romeo',country:'İtalya',type:'Otomobil'},'ZFA':{make:'Fiat',country:'İtalya',type:'Otomobil'},'ZFF':{make:'Ferrari',country:'İtalya',type:'Spor'},'MAT':{make:'Opel',country:'Polonya',type:'Otomobil'}};
 const YR='ABCDEFGHJKLMNPRSTVWXY123456789';
 function vinYear(c){const i=YR.indexOf(c.toUpperCase());return i<0?'?':1980+(i%30);}
 function decodeVIN(v){let info=null;for(const k of Object.keys(WMI).sort((a,b)=>b.length-a.length)){if(v.startsWith(k)){info={...WMI[k]};break;}}if(!info)info={make:'Bilinmiyor',country:'?',type:'?'};const year=v.length>=10?vinYear(v[9]):'?';return{...info,year,vin:v};}
@@ -347,7 +349,7 @@ function doVIN(){
   document.getElementById('vc-title').textContent=d.make+' — '+d.year;
   document.getElementById('vc-sub').textContent='ŞASE: '+d.vin;
   document.getElementById('vc-grid').innerHTML=`<div class="vc-item"><div class="vc-item-label">Marka</div><div class="vc-item-value">${d.make}</div></div><div class="vc-item"><div class="vc-item-label">Yıl</div><div class="vc-item-value">${d.year}</div></div><div class="vc-item"><div class="vc-item-label">Ülke</div><div class="vc-item-value">${d.country}</div></div><div class="vc-item"><div class="vc-item-label">Tip</div><div class="vc-item-value">${d.type}</div></div>`;
-  const psUrl=`https://partsouq.com/en/search/universal?q=${encodeURIComponent(d.vin)}`;
+  const psUrl=`https://partsouq.com/en/search/all?q=${encodeURIComponent(d.vin)}`;
   document.getElementById('ps-link').href=psUrl;
   document.getElementById('ps-link-sub').textContent=`${d.make} ${d.year} · ${d.vin}`;
   const vm=document.getElementById('vmini');vm.style.display='flex';
@@ -363,8 +365,8 @@ function doSearch(){
   const kw=document.getElementById('part-inp').value.trim();
   if(!kw){toast('Parça adı girin','err');return;}
   const vin=curVehicle?.vin;
-  const psVin=vin?`https://partsouq.com/en/search/universal?q=${encodeURIComponent(vin)}`:'';
-  const psKw=`https://partsouq.com/en/search/universal?q=${encodeURIComponent(kw)}`;
+  const psVin=vin?`https://partsouq.com/en/search/all?q=${encodeURIComponent(vin)}`:'';
+  const psKw=`https://partsouq.com/en/search/all?q=${encodeURIComponent(kw)}`;
   let html=`<div class="section-label" style="margin-top:4px">ARAMA BAĞLANTILARI</div>`;
   if(vin){
     html+=`<a class="direct-link2" href="${psVin}" target="_blank"><span style="font-size:26px">🚗</span><div style="flex:1"><div class="dl-title">${curVehicle.make} ${curVehicle.year} — Tüm Katalog</div><div class="dl-sub">Şase ile aç · ${vin}</div></div><span style="color:var(--muted);font-size:18px">→</span></a>`;
@@ -422,7 +424,7 @@ async function analyze(){
 }
 
 function copyOEM(){const v=document.getElementById('oem-val').textContent;navigator.clipboard.writeText(v).then(()=>toast('✅ Kopyalandı: '+v,'ok'));}
-function searchFromPhoto(){if(!curPhoto)return;const kw=curPhoto.searchKeywords||curPhoto.partNameEn;const url=curVehicle?.vin?`https://partsouq.com/en/search/universal?q=${encodeURIComponent(curVehicle.vin)}`:`https://partsouq.com/en/search/universal?q=${encodeURIComponent(kw)}`;window.open(url,'_blank');}
+function searchFromPhoto(){if(!curPhoto)return;const kw=curPhoto.searchKeywords||curPhoto.partNameEn;const url=curVehicle?.vin?`https://partsouq.com/en/search/all?q=${encodeURIComponent(curVehicle.vin)}`:`https://partsouq.com/en/search/all?q=${encodeURIComponent(kw)}`;window.open(url,'_blank');}
 
 function toB64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=()=>rej(new Error('Dosya okunamadı'));r.readAsDataURL(file);});}
 function showLoader(t,s){document.getElementById('loader-title').textContent=t;document.getElementById('loader-sub').textContent=s;document.getElementById('loader').classList.add('show');}
